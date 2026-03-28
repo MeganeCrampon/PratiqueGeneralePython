@@ -1,4 +1,5 @@
 from Classe import Utilisateur
+import secrets
 
 # BASE DE DONNEES
 user_base = []
@@ -28,31 +29,30 @@ def add_user():
             else:
                 break
         # CREATION OBJET et STOCKAGE en DB
-        nouvel_utilisateur = Utilisateur(nouveau_nom, nouveau_mdp)
+        salt = secrets.token_hex(16)
+        nouvel_utilisateur = Utilisateur(nouveau_nom, nouveau_mdp, salt)
         user_base.append(nouvel_utilisateur)
         print(f"Votre compte a bien été crée {nouveau_nom} !")
 
-def verif_mdp():
-    print(f"\nBonjour {Utilisateur.nom} !")
-    essai = 0
-    mdp_entre = input("Veuillez entrer votre mot de passe : ")
-    while True :
-        if mdp_entre != Utilisateur.mdp:
-            essai += 1
-            print(f"Accès refusé. Au bout de 3 essais le compte sera temporairement bloqué. Essai {essai}/3.")
-            if essai == 3:
-                print("\nTrop de tentatives. Votre compte est temporairement bloqué.")
-                break
-        else :
-            print(f"Accès autorisé. Bienvenue {Utilisateur.nom}.")
+def verif_mdp(user_obj):
+    print(f"\nBonjour {user_obj.nom} !")
+    for essai in range(1,4):
+        mdp_entre = input(f"Essai{essai}/3 - Veuillez entrer votre mot de passe : ")
+
+        if user_obj.verifier_mdp(mdp_entre):
+            print(f"Accès autorisé. Bienvenue {user_obj.nom}.")
             return
+        else :
+            print(f"Accès refusé, mot de passe incorrect.")
+
+    print("Compte temporairement bloqué.")
 
 def auth():
     print("\n---CONNEXION---")
-    nom_entre = input("Veuillez entrer votre nom d'utilisateur : ").strip().capitalize()
+    nom_entre = input("Nom d'utilisateur : ").strip().capitalize()
     utilisateur_trouve = next((u for u in user_base if u.nom == nom_entre), None)
     if utilisateur_trouve:
         verif_mdp(utilisateur_trouve)
     else :
-        print("Nom d'utilisateur inconnu.")
+        print("Utilisateur inconnu.")
         add_user()
