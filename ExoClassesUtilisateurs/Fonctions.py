@@ -39,7 +39,7 @@ def verif_mdp(user_obj):
     for essai in range(1,4):
         mdp_entre = input(f"Essai{essai}/3 - Veuillez entrer votre mot de passe : ")
 
-        if user_obj.verifier_mdp(mdp_entre):
+        if user_obj.verifier_mot_de_passe(mdp_entre):
             print(f"Accès autorisé. Bienvenue {user_obj.nom}.")
             return
         else :
