@@ -13,9 +13,9 @@ def est_encore_valide(data_dict):
     maintenant = datetime.now()
 
     if maintenant > date_fin:
-        return False
+        return "Abonnement invalide"
     else :
-        return True
+        return "Abonnmment valide"
 
 valide_ou_non = est_encore_valide(abonnement)
 print(f"L'abonnement de {abonnement['user']} est valide : {valide_ou_non}")
