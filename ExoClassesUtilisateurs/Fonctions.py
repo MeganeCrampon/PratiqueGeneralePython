@@ -23,14 +23,14 @@ def add_user():
                 continue
             break
         while True :
-            nouveau_mdp = input("Veuillez maintenant entrer votre mot de passe : ").strip()
+            nouveau_mdp = input("Veuillez maintenant entrer votre mot de passe : ")
             if len(nouveau_mdp) < 8:
                 print("Mot de passe trop court.")
             else:
                 break
         # CREATION OBJET et STOCKAGE en DB
         salt = secrets.token_hex(16)
-        nouvel_utilisateur = Utilisateur(nouveau_nom, nouveau_mdp, salt)
+        nouvel_utilisateur = Utilisateur(nouveau_nom, salt, nouveau_mdp)
         user_base.append(nouvel_utilisateur)
         print(f"Votre compte a bien été crée {nouveau_nom} !")
 
