@@ -6,19 +6,19 @@ cur = conn.cursor()
 cur.execute('''
 CREATE TABLE IF NOT EXISTS Pokemons (
     id INTEGER PRIMARY KEY,
-    nom TEXT NOT NULL,
+    nom TEXT UNIQUE,
     type TEXT,
     niveau INTEGER
 )           
 ''')
 
-cur.execute("INSERT INTO Pokemons (nom, type, niveau) VALUES ('Pikachu', 'Electrique', 15)")
-cur.execute("INSERT INTO Pokemons (nom, type, niveau) VALUES ('Caninos', 'Feu', 12)")
-cur.execute("INSERT INTO Pokemons (nom, type, niveau) VALUES ('Kaiminus', 'Eau', 16)")
+cur.execute("INSERT OR REPLACE INTO Pokemons (nom, type, niveau) VALUES ('Pikachu', 'Electrique', 15)")
+cur.execute("INSERT OR REPLACE INTO Pokemons (nom, type, niveau) VALUES ('Caninos', 'Feu', 12)")
+cur.execute("INSERT OR REPLACE INTO Pokemons (nom, type, niveau) VALUES ('Kaiminus', 'Eau', 16)")
 conn.commit()
 
 def ajouter_pokemon(nom, type, niveau):
-    commande = "INSERT INTO Pokemons (nom, type, niveau) VALUES (?, ?, ?)"
+    commande = "INSERT OR REPLACE INTO Pokemons (nom, type, niveau) VALUES (?, ?, ?)"
     cur.execute(commande, (nom, type, niveau))
     conn.commit()
 
