@@ -18,7 +18,7 @@ cur.execute("INSERT INTO Pokemons (nom, type, niveau) VALUES ('Kaiminus', 'Eau',
 conn.commit()
 
 def ajouter_pokemon(nom, type, niveau):
-    commande = ("INSERT INTO Pokemons (nom, type, niveau) VALUES (?, ?, ?)")
+    commande = "INSERT INTO Pokemons (nom, type, niveau) VALUES (?, ?, ?)"
     cur.execute(commande, (nom, type, niveau))
     conn.commit()
 
