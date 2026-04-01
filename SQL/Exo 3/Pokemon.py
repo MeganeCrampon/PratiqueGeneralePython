@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS Pokemons (
     niveau INTEGER
 )           
 ''')
+
 cur.execute("SELECT COUNT(*) FROM Pokemons")
 nombre_pokemons = cur.fetchone()[0]
 if nombre_pokemons == 0:
@@ -33,23 +34,27 @@ def trouver_niveau(niveau_choisi):
     cur.execute("SELECT * FROM Pokemons WHERE niveau >= ?", (niveau_choisi,))
     return cur.fetchall()
 
-def afficher_pokemons(liste_pokemons):
+def affichage_recherche(liste_pokemons):
     if not liste_pokemons:
         print("[!] Aucun Pokemon trouvé !")
         return
     print("\n" + "="*55)
     print(f"{'Nom' :<15} | {'Type' :<19} | {'Niveau'}")
     print("-"*55)
-
     for pokemon in liste_pokemons:
-        print(f"{pokemon[1]:<15} | Type : {pokemon[2] :<12} | Niveau : {pokemon[3]}")
-        
+        print(f"{pokemon[1]:<15} | Type : {pokemon[2] :<12} | Niveau : {pokemon[3]}")      
     print("="*55)
+
+print("--- POKEDEX ---")
+
 
 # TEST
 print(f"--- POKEMONS DE TYPE : ELECTRIQUE ---")
 resultat_elec = trouver_type('Electrique')
-afficher_pokemons(resultat_elec)
+affichage_recherche(resultat_elec)
 print(f"\n--- POKEMONS DE NIVEAU 12+ ---")
 resultat_lvl_12 = trouver_niveau(12)
-afficher_pokemons(resultat_lvl_12)
+affichage_recherche(resultat_lvl_12)
+print(f"--- POKEMONS DE TYPE : POISON ---")
+resultat_poison = trouver_type('Poison')
+affichage_recherche(resultat_poison)
