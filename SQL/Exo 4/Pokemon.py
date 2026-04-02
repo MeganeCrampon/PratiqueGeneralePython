@@ -87,8 +87,8 @@ def dresseur_puissant():
     for dresseur, pokemon, pk_niveau in resultat:
         print(f"Le dresseur {dresseur} est puissant : il possède un {pokemon} de niveau {pk_niveau} !!")
 
-print("------ POKEDEX ------")
 
+print("------ POKEDEX ------")
 
 # TEST
 print(f"\n--- POKEMONS DE TYPE : ELECTRIQUE ---")
